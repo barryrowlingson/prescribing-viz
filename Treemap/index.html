@@ -56,7 +56,7 @@ rect.parent,
 
 <header>
   <aside>June 8, 2012</aside>
-  <a href="../" rel="author">Original Author Mike Bostock</a>
+  <a href="../" rel="author">Mike Bostock</a>
 </header>
 
 <h1>BNF Spending</h1>
@@ -68,7 +68,6 @@ rect.parent,
 <p>Treemaps are a form of <a href="http://mbostock.github.com/d3/ex/treemap.html">space</a><a href="http://mbostock.github.com/d3/ex/pack.html">-filling</a> <a href="http://mbostock.github.com/d3/ex/sunburst.html">layout</a> where the area of each rectangle is proportional to its value. 
 </p>
 <p>Here the value is the total spending on that chapter, section, and paragraph of the BNF in a given month</p>
-<p>Note: This pages uses code from Mike Bostock, all I (Barry Rowlingson) did was format the data from the OpenPrescribing web site. Docs coming later.</p>
 <footer>
   <aside>June 8, 2012</aside>
   <a href="../" rel="author">Mike Bostock</a>
@@ -119,7 +118,7 @@ grandparent.append("text")
     .attr("y", 6 - margin.top)
     .attr("dy", ".75em");
 
-d3.json("bnf.json", function(root) {
+d3.json("chemicals.json", function(root) {
   initialize(root);
   accumulate(root);
   layout(root);
@@ -186,7 +185,8 @@ d3.json("bnf.json", function(root) {
         .data(function(d) { return d._children || [d]; })
       .enter().append("rect")
         .attr("class", "child")
-        .call(rect);
+        .call(rect)
+      .append("title").text(function(d){return formatNumber(d.value)});
 
     g.append("rect")
         .attr("class", "parent")
@@ -256,11 +256,3 @@ d3.json("bnf.json", function(root) {
 });
 
 </script>
-<script>
-
-GoogleAnalyticsObject = "ga", ga = function() { ga.q.push(arguments); }, ga.q = [], ga.l = +new Date;
-ga("create", "UA-48272912-3", "ocks.org");
-ga("send", "pageview");
-
-</script>
-<script async src="//www.google-analytics.com/analytics.js"></script>
